@@ -1,0 +1,41 @@
+import discord
+
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
+pic = None
+messages = ['👀']
+
+@client.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(client))
+    user = client.get_user(123966857890889728)
+    # await user.send(pic)
+    for msg in messages:
+        await user.send(msg)
+    await client.close()
+    exit()
+
+def send_message(report):
+    """
+    :param report: Dictionary
+    """
+    global pic, messages
+    pic = report.get('pic_id')
+    messages = _format_report(report)
+    client.run('OTYxNDQwOTgwNTMwMjM3NTEz.Yk5BsA.NINoAD8-7JMDuR65NytYnb8Gxcw')
+
+def _format_report(report):
+    """
+    Take the weather report data and format it into a list of strings
+
+    report['weather_morn_temp'] = round(weather_data['feels_like']['morn'])
+    report['weather_day_temp'] = round(weather_data['feels_like']['day'])
+    report['weather_eve_temp'] = round(weather_data['feels_like']['eve'])
+    report['weather_desc'] = weather_data['weather'][0]['description']
+    report['pic_id'] = weather_data['weather'][0]['icon']
+    """
+    result = []
+    result.append("The temperature will be {}° today. It will be {}° in the morning and {}° in the evening.".format(report.get('weather_day_temp'), report.get('weather_morn_temp'), report.get('weather_eve_temp')))
+    result.append("Feeling like {}...".format(report.get('weather_desc')))
+    return result
