@@ -46,9 +46,9 @@ def _get_weather_data():
     # logger = _getLogger('_get_weather_data')
     # logger.info('testing get weather data')
     api_uri = "https://api.openweathermap.org/data/2.5/onecall"
-    api_key = None
-    latitude = 42.35843
-    longitude = -71.05977
+    api_key = os.getenv('OPEN_WEATHER_API_KEY')
+    latitude = os.getenv('LATITUDE')
+    longitude = os.getenv('LONGITUDE')
 
     # request open weather data
     response = requests.get(api_uri, params = {
