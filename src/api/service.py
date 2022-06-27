@@ -40,8 +40,8 @@ def _get_weather_data():
     open_weather_api_key = 
 
     # Boston
-    # latitude = 42.35843
-    # longitude = -71.05977
+    # latitude = 42.3876
+    # longitude = -71.0995
     """
     # logger = _getLogger('_get_weather_data')
     # logger.info('testing get weather data')
@@ -60,8 +60,7 @@ def _get_weather_data():
 
     # response ok?
     if response.status_code == 200:
-        return response.json()['daily'][0]
-
+        return response.json().get('daily', [])[0]
     else:
         # logger.error('Request to open weather map failed')
         # raise error, api not working

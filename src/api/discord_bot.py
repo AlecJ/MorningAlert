@@ -13,7 +13,6 @@ async def on_ready():
     # await user.send(pic)
     await user.send(message)
     await client.close()
-    exit()
 
 def send_message(report):
     """
