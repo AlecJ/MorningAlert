@@ -16,7 +16,13 @@ Daily weather report sent via Discord.
 - Set `LATITUDE` and `LONGITUDE` to the coordinates you want weather data for
 - Obtain an openweather API key from `openweathermap.org` and set `OPEN_WEATHER_API_KEY`
 
-3. Run
+3. Set up Discord Bot
+
+- ...
+- Set `DISCORD_API_KEY` with your Discord Bot API Key
+- Set `DISCORD_RECIPIENT_USER_ID` to the Discord User ID you want to send reports to
+
+4. Run
 
 - `python3 src/api/__init__.py`
 

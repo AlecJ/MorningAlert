@@ -9,4 +9,3 @@ if __name__ == '__main__':
     report = generate_report()
     send_message(report)
     # os.system('python discord_bot.py')
-        

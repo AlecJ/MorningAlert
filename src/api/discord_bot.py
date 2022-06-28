@@ -1,3 +1,4 @@
+import os
 import discord
 
 intents = discord.Intents.default()
@@ -9,19 +10,28 @@ message = '👀'
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
-    user = client.get_user(123966857890889728)
+    USER_ID = int(os.getenv('DISCORD_RECIPIENT_USER_ID'))
+    user = client.get_user(USER_ID)
     # await user.send(pic)
     await user.send(message)
     await client.close()
 
+def clear_messages():
+    """
+    Removes previous messages from the chat, so that there is only one message at a time.
+    """
+    pass
+
 def send_message(report):
     """
+    Send the report to the user
     :param report: Dictionary
     """
     global pic, message
     pic = report.get('pic_id')
     message = _format_report(report)
-    client.run('OTYxNDQwOTgwNTMwMjM3NTEz.Yk5BsA.NINoAD8-7JMDuR65NytYnb8Gxcw')
+    DISCORD_API_KEY = os.getenv('DISCORD_API_KEY')
+    client.run(DISCORD_API_KEY)
 
 def _format_report(report):
     """
