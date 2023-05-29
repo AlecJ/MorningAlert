@@ -12,7 +12,7 @@ import os
 """
 
 
-def generate_report():
+def get_weather_data():
     """
     Compile all data for a daily report, including weather data from
     openweather, calendar events from google calendar, and a random
@@ -65,15 +65,3 @@ def _get_weather_data():
         # logger.error('Request to open weather map failed')
         # raise error, api not working
         raise BaseException('Request to open weather map failed')
-
-
-def _get_calendar_events():
-    test = "https://www.googleapis.com/calendar/v3/users/me/calendarList/"
-    api_uri = "https://calendar.google.com/calendar/embed?src=alecbjordan%40gmail.com&ctz=America%2FNew_York"
-    params = {
-        'timeMin': datetime.now().isoformat(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
-    }
