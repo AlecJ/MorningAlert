@@ -1,4 +1,7 @@
-__pycache__/
-venv/
-env/
+*.pyc
 .env
+/virtualenv
+/venv
+/env
+__pycache__
+/secrets
