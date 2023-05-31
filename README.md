@@ -30,3 +30,5 @@ Daily weather report sent via Discord.
 
 Trigger a daily script
 Weather Icon
+
+`google-calendar-secret.json` must be placed in `/src/`

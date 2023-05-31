@@ -11,10 +11,12 @@ push_unfinished_to_do_tasks
 
 from .classes.google_calendar_api import GoogleCalenderAPI
 
+client = GoogleCalenderAPI()
+
 # Get all tasks for today
 def get_to_do_data():
-    # data = get_tasks_for_day()
-    return []
+    data = client.get_tasks_for_day()
+    return data or []
 
 
 # Update all tasks for today and set their start/end date to tomorrow.
