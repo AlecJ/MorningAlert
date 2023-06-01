@@ -43,10 +43,23 @@ def _format_report(report):
     report['weather_desc'] = weather_data['weather'][0]['description']
     report['pic_id'] = weather_data['weather'][0]['icon']
     """
-    return "👋\nThe temperature will be {}° today. It will be {}° in the morning and {}° in the evening." \
-            .format(report.get('weather_day_temp'),
-                    report.get('weather_morn_temp'),
-                    report.get('weather_eve_temp')) + "\nFeeling like {}...".format(report.get('weather_desc'))
+    todos = report.get('todo')
+    weather = report.get('weather')
+
+    # weather data
+    message = "👋\nThe temperature will be {}° today. It will be {}° in the morning and {}° in the evening." \
+        .format(weather.get('weather_day_temp'),
+                weather.get('weather_morn_temp'),
+                weather.get('weather_eve_temp'))
+    message += "\nFeeling like {}...".format(weather.get('weather_desc'))
+    
+    # to do data
+    message += "\n\nYou have {} events today:".format(len(todos))
+
+    for todo in todos:
+        message += '\n* {}'.format(todo.get('summary'))
+
+    return message
           
                             
                                         
