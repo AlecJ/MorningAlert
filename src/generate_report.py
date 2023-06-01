@@ -1,12 +1,21 @@
-import os
+"""
+This is the main file to be called to generate the daily report.
+
+It fetches the following data and sends it in a formatted message to myself via discord:
+- weather data
+- any calendar events for today in the "to_do_list" calendar
+"""
+
+# load env
 from dotenv import load_dotenv
 load_dotenv()
+
+# load classes
 from _discord import send_message
 from weather import get_weather_data
 from to_do import get_to_do_data
 
 if __name__ == '__main__':
-    # input('send a message?')
     report = {}
 
     # get weather data
@@ -17,4 +26,3 @@ if __name__ == '__main__':
 
     # send discord message
     send_message(report)
-    # os.system('python discord_bot.py')

@@ -6,10 +6,5 @@ Also handle completing, pushing back, or deleting events.
 
 # TO DO
 
-- set up raspberry pi repo
-- able to have pi repo make request to this repo
-
-- how to run a scheduled task, flask API, raspberry pi?
-  - end of day task to move remaining tasks to tomorrow
-  - task to get tasks
-  - move todays task to tomorrow, or yesterdays to today (overnight)
+action to move unfinished tasks to tomorrow
+cron job to call action

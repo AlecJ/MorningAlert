@@ -28,7 +28,16 @@ Daily weather report sent via Discord.
 
 ## To Do
 
-Trigger a daily script
-Weather Icon
+- copy script needs to create a virtualenv or keep it elsewhere
+- copy script needs to copy .env file into dir
+- ~/app directory?
+- push google auth link via discord
 
 `google-calendar-secret.json` must be placed in `/src/`
+
+- send IP on startup via discord
+- reboot?
+
+Backlog:
+
+- Weather Icon?
