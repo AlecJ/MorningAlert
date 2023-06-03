@@ -27,7 +27,8 @@ import os.path
 import os
 import re
 
-from ..util.date import get_tomorrows_date
+from util.date import get_tomorrows_date
+from util.get_ip import get_ip
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -63,8 +64,13 @@ class GoogleCalenderAPI:
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     'google-calendar-secret.json', self.SCOPES)
+                # Me stuff
+                # this is running on a raspberry pi which uses a random
+                # ip on the local network.
+                # gotta get the ip and use it as the return address
+                pi_ip = get_ip()
                 self.CREDS = flow.run_local_server(
-                    open_browser=False, bind_addr="0.0.0.0", port=5001)
+                    open_browser=False, bind_addr=pi_ip, port=5001)
             # Save the credentials for the next run
             with open('token.json', 'w') as token:
                 token.write(self.CREDS.to_json())

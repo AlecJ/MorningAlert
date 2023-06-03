@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ -z "$1" ]; then
     echo "Provide a command as an argument."
@@ -16,13 +16,13 @@ DATE_WITH_TIME=`date "+%Y%m%d-%H%M%S"`
 
 if   [[ $1 == make_report ]]; then
     echo "$DATE_WITH_TIME: Started job: generate_report."
-    python src/generate_report.py
+    python MorningAlert/src/generate_report.py
 elif [[ $1 == get_ip ]]; then
     echo "$DATE_WITH_TIME: Started job: get_ip."
-    python src/get_ip.py
+    python MorningAlert/src/get_ip.py
 elif [[ $1 == push_tasks ]]; then
     echo "$DATE_WITH_TIME: Started job: move_unfinished_tasks."
-    python src/move_unfinished_tasks.py
+    python MorningAlert/src/move_unfinished_tasks.py
 fi
 
 DATE_WITH_TIME=`date "+%Y%m%d-%H%M%S"`

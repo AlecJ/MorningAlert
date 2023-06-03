@@ -9,26 +9,15 @@ This is useful since the IP can change occasionally and
 from dotenv import load_dotenv
 load_dotenv()
 
-# built-ins
-import socket
-
 # load classes
+from util.get_ip import get_ip
 from _discord import send_message
 
 if __name__ == '__main__':
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.settimeout(0)
-    try:
-        # doesn't even have to be reachable
-        s.connect(('10.254.254.254', 1))
-        IP = s.getsockname()[0]
-    except Exception:
-        IP = '127.0.0.1'
-    finally:
-        s.close()
-
-    ip_message = '[Raspberry Pi] Current IP: {}'.format(IP)
-    print(ip_message)
+    pi_ip = get_ip()
+    # TODO replace with get_hostname or some such
+    pi_ip_message = '[Raspberry Pi] Current IP: {}'.format(pi_ip)
+    print(pi_ip_message)
 
     # send discord message
-    send_message(ip_message)
+    send_message(pi_ip_message)
