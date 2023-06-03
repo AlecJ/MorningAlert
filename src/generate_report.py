@@ -25,4 +25,4 @@ if __name__ == '__main__':
     report['todo'] = get_to_do_data()
 
     # send discord message
-    send_message(report)
+    send_message(report, do_format=True)

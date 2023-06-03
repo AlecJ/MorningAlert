@@ -31,4 +31,4 @@ if __name__ == '__main__':
     print(ip_message)
 
     # send discord message
-    # send_message(ip_message)
+    send_message(ip_message)

@@ -21,4 +21,4 @@ def get_to_do_data():
 
 # Update all tasks for today and set their start/end date to tomorrow.
 def push_unfinished_to_do_tasks():
-    pass
+    client.move_unfinished_tasks_to_tomorrow()

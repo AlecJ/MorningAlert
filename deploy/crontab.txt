@@ -1,3 +1,5 @@
 SHELL=/bin/bash
-0 7 * * * /home/pi/run.sh >> /home/pi/logs/run.log &
 30 * * * * /home/pi/copy.sh &
+@reboot /home/pi/run.sh get_ip
+0 7 * * * /home/pi/run.sh make_report >> /home/pi/logs/run.log &
+30 23 * * * /home/pi/run.sh push_tasks >> /home/pi/logs/run.log &
