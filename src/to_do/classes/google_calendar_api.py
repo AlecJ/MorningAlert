@@ -70,7 +70,7 @@ class GoogleCalenderAPI:
                 # gotta get the ip and use it as the return address
                 pi_ip = get_ip()
                 self.CREDS = flow.run_local_server(
-                    open_browser=False, bind_addr=pi_ip, port=5001)
+                    open_browser=False, host=pi_ip, port=5001)
             # Save the credentials for the next run
             with open('token.json', 'w') as token:
                 token.write(self.CREDS.to_json())
