@@ -65,7 +65,7 @@ class GoogleCalenderAPI:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     'google-calendar-secret.json', self.SCOPES)
                 self.CREDS = flow.run_local_server(
-                    open_browser=False, host='localhost.com', port=5001)
+                    open_browser=False, bind_addr='0.0.0.0', port=5001)
             # Save the credentials for the next run
             with open('token.json', 'w') as token:
                 token.write(self.CREDS.to_json())

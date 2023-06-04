@@ -8,3 +8,4 @@ __pycache__
 *.json
 .DS_Store
 todo.md
+dev-notes.md
