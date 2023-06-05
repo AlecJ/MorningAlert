@@ -2,8 +2,6 @@
 The _discord module handles sending messages to users on discord.
 It does this by connecting to discord as a bot and sending a direct message (DM)
 to another user.
-
-
 """
 
 import os
@@ -24,19 +22,19 @@ async def on_ready():
     await user.send(message)
     await client.close()
 
-def clear_messages():
-    """
-    Removes previous messages from the chat, so that there is only one message at a time.
+"""
+Removes previous messages from the chat, so that there is only one message at a time.
 
-    Not implemented. Delete?
-    """
+Not implemented. Delete?
+"""
+def clear_messages():
     pass
 
+"""
+Send the report to the user
+:param report: Dictionary
+"""
 def send_message(message_to_send, pic_to_send=None, do_format=False):
-    """
-    Send the report to the user
-    :param report: Dictionary
-    """
     global pic, message
     message = message_to_send
     
@@ -49,14 +47,12 @@ def send_message(message_to_send, pic_to_send=None, do_format=False):
     DISCORD_API_KEY = os.getenv('DISCORD_API_KEY')
     client.run(DISCORD_API_KEY)
 
+"""
+Take the weather and todo data and format it into a formatted string.
+"""
 def _format_report(report):
-    """
-    Take the weather and todo data and format it into a formatted string.
-    """
-    todos = report.get('todo')
-    weather = report.get('weather')
-
     # weather data
+    weather = report.get('weather')
     message = "👋\nThe temperature will be {}° today. It will be {}° in the morning and {}° in the evening." \
         .format(weather.get('weather_day_temp'),
                 weather.get('weather_morn_temp'),
@@ -64,12 +60,13 @@ def _format_report(report):
     message += "\nFeeling like {}...".format(weather.get('weather_desc'))
     
     # to do data
-    message += "\n\nYou have {} events today:".format(len(todos))
+    todos = report.get('todo')
+    if len(todos) > 0:
+        message += "\n\nYou have {} events today:".format(len(todos))
 
-    for todo in todos:
-        message += '\n* {}'.format(todo.get('summary'))
+        for todo in todos:
+            message += '\n* {}'.format(todo.get('summary'))
+    else:
+        message += "\n\nLooks like you have the day off. Enjoy!"
 
     return message
-          
-                            
-                                        

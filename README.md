@@ -2,24 +2,6 @@
 
 Daily weather and todos sent via Discord DM.
 
-## To Do
-
-- finish copy script (copy flow.py to right location)
-- copy script needs to create a virtualenv or keep it elsewhere
-- copy script needs to copy .env file into dir
-- update discord.send_message (sends whatever it gets)
-- discord sends message for auth
-- cron job to call actions
-
-`google-calendar-secret.json` must be placed in `/src/`
-
-- send IP on startup via discord
-- reboot?
-
-### Backlog
-
-- Weather Icon?
-
 ## Set Up
 
 A. CI/CD
@@ -66,6 +48,7 @@ The directory structure on the raspberry pi looks like:
     \_ run.sh
     \_ app/
         \_ .env
+        \_ token.json
         \_ google-calendar-secret.json
         \_ venv/
         \_ MorningAlert/ (repo)
