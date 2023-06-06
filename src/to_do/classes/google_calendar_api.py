@@ -76,9 +76,6 @@ class GoogleCalenderAPI:
         try:
             service = build('calendar', 'v3', credentials=self.CREDS)
 
-            # calendar_list = service.calendarList().list().execute()
-            # [print(cal) for cal in calendar_list.get('items')]
-
             # Call the Calendar API
             now = datetime.datetime.today()
             start_of_today = datetime.datetime(

@@ -68,5 +68,10 @@ def _format_report(report):
             message += '\n* {}'.format(todo.get('summary'))
     else:
         message += "\n\nLooks like you have the day off. Enjoy!"
+    
+    # mantra
+    mantra = report.get('mantra')
+    if mantra:
+        message += "\n\n" + mantra
 
     return message

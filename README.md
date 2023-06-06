@@ -30,9 +30,22 @@ B. Single Install
 - Set `DISCORD_API_KEY` with your Discord Bot API Key
 - Set `DISCORD_RECIPIENT_USER_ID` to the Discord User ID you want to send reports to
 
-4. Run
+4. Google Calendar Authentication
+
+- ... todo
+- scp token.json to machine
+
+5. Run
 
 - `python3 src/generate_report.py`
+
+### Optional
+
+5. Create a mantras.txt
+   This will include a daily mantra with your daily alert.
+
+- create mantras.txt in your `~/app/` directory.
+- Make each line it's own message. Be careful with special characters, the string is sent as-is.
 
 ## Raspberry Pi Configuration
 

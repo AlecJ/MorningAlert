@@ -11,9 +11,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # load classes
-from _discord import send_message
+from _discord import send_message, _format_report
 from weather import get_weather_data
 from to_do import get_to_do_data
+from mantra import get_random_mantra
 
 if __name__ == '__main__':
     report = {}
@@ -23,6 +24,9 @@ if __name__ == '__main__':
 
     # get calendar / to-do data
     report['todo'] = get_to_do_data()
+
+    # get daily mantra
+    report['mantra'] = get_random_mantra()
 
     # send discord message
     send_message(report, do_format=True)
