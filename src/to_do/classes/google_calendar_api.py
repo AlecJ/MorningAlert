@@ -80,10 +80,12 @@ class GoogleCalenderAPI:
             now = datetime.datetime.today()
             start_of_today = datetime.datetime(
                 now.year, now.month, now.day, 0, 0, 0)
+            end_of_day = datetime.datetime(
+                now.year, now.month, now.day, 23, 59, 59)
             start_of_today = start_of_today.isoformat() + 'Z'
+            end_of_day = end_of_day.isoformat() + 'Z'
             events_result = service.events().list(calendarId=self.CALENDAR_ID, timeMin=start_of_today,
-                                                  maxResults=50, singleEvents=True,
-                                                  orderBy='startTime').execute()
+                                                  timeMax=end_of_day, maxResults=50).execute()
             events = events_result.get('items', [])
 
             # sort tasks by index
