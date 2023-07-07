@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # load classes
-from _discord import send_message, _format_report
+from _discord import send_message
 from weather import get_weather_data
 from to_do import get_to_do_data
 from mantra import get_random_mantra

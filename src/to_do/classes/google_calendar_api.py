@@ -1,7 +1,7 @@
 """
 CRUD for storing strings on google calendar
 
-get_tasks_for_day
+get_tasks_for_today
 -
 
 create_task
@@ -72,7 +72,7 @@ class GoogleCalenderAPI:
 
 
     #
-    def get_tasks_for_day(self):
+    def get_tasks_for_today(self):
         try:
             service = build('calendar', 'v3', credentials=self.CREDS)
 
@@ -152,7 +152,7 @@ class GoogleCalenderAPI:
     #
     def move_unfinished_tasks_to_tomorrow(self):
         # get all tasks for today
-        tasks = self.get_tasks_for_day()
+        tasks = self.get_tasks_for_today()
         tomorrow = get_tomorrows_date()
 
         for task in tasks:

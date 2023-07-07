@@ -15,7 +15,7 @@ client = GoogleCalenderAPI()
 
 # Get all tasks for today
 def get_to_do_data():
-    data = client.get_tasks_for_day()
+    data = client.get_tasks_for_today()
     return data or []
 
 

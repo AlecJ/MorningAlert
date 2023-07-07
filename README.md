@@ -4,6 +4,21 @@ Daily weather and todos sent via Discord DM.
 
 ## Set Up
 
+Install raspberry pi OS:
+https://www.raspberrypi.com/software/
+
+Connect to machine and note IP Address:
+run `ifconfig`
+
+Create directory as structure below.
+
+Create virtualenv:
+`cd ~/app && python -m venv venv`
+and install dependencies:
+`pip install -r MorningAlert/deploy/pip.pi.txt`
+
+## Addt Set Up
+
 A. CI/CD
 
 - github actions
