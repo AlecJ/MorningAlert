@@ -17,7 +17,7 @@ Create virtualenv:
 and install dependencies:
 `pip install -r MorningAlert/deploy/pip.pi.txt`
 
-## Addt Set Up
+## Add'l Set Up
 
 A. CI/CD
 
@@ -31,11 +31,11 @@ B. Single Install
 - `python3 -m pip install virtualenv` (if you do not have virtualenv installed)
 - `python3 -m virtualenv venv`
 - `source venv/bin/activate` (`venv/scripts/activate` for windows)
-- `python3 -m pip install -r src/requirements.txt`
+- `pip install -r deploy/pip.dev.txt`
 
 2. Create environment file
 
-- Copy `.env.SAMPLE` and rename it `.env`
+- Copy `.env.EXAMPLE` and rename it `.env`
 - Set `LATITUDE` and `LONGITUDE` to the coordinates you want weather data for
 - Obtain an openweather API key from `openweathermap.org` and set `OPEN_WEATHER_API_KEY`
 
@@ -97,3 +97,11 @@ copy.sh - used in cron, copies repo changes from the github actions dir to the a
 generate_report.py - main script to generate a daily report, sent to me via discord
 get_ip.py - used on boot, messages myself on discord with the machines IP
 move_unfinished_tasks.py - run at the end of the day, moves remaining todos for today to tomorrow
+
+
+### Requirements
+In case pip package versioning is messed up, this project needs:
+discord.py
+python-dotenv
+requests
+asyncio

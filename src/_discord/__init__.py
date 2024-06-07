@@ -6,72 +6,95 @@ to another user.
 
 import os
 import discord
+import asyncio
+from .util import _format_report
 
-intents = discord.Intents.default()
-intents.members = True
-client = discord.Client(intents=intents)
-pic = None
-message = '👀'
 
-@client.event
-async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
-    USER_ID = int(os.getenv('DISCORD_RECIPIENT_USER_ID'))
-    user = client.get_user(USER_ID)
-    # await user.send(pic)
-    await user.send(message)
-    await client.close()
+class DiscordClient(discord.Client):
+    """
+    This discord client is designed to respond to events. In this case,
+    we want to start the client, perform it's actions, and close immediately.
 
-"""
-Removes previous messages from the chat, so that there is only one message at a time.
+    For this reason, we need to set a bunch of values in the __init__, notably
+    `message` which is what will be sent to the user.
+    """
+    def __init__(self, wait_for_response=False, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user_id = int(os.getenv('DISCORD_RECIPIENT_USER_ID'))
+        self.fetched_user = None
+        self.message = None
+        self.do_wait_for_response = wait_for_response
+        self.response = None
 
-Not implemented. Delete?
-"""
-def clear_messages():
-    pass
+    """
+    Called once the client has connected to the discord servers.
+
+    Either simply send a message and close or send a message and poll for a response.
+    """
+    async def on_ready(self):
+        print(f'Logged in as {self.user}')
+        await self.send_message(self.message)
+        
+        if self.do_wait_for_response:
+            await self.wait_for_response()
+
+        await self.close_client()
+
+    """
+    Sends a message to user.
+    """
+    async def send_message(self, message):
+        if self.fetched_user is None:
+            self.fetched_user = await self.fetch_user(self.user_id)
+
+        await self.fetched_user.send(message)
+
+    """
+    Polls for a direct message response from the user and returns it.
+    """
+    async def wait_for_response(self):
+        await self.send_message('pls respond')
+
+        def check(m):
+            return m.author.id == self.user_id and isinstance(m.channel, discord.DMChannel)
+
+        try:
+            msg = await self.wait_for('message', check=check, timeout=30.0)  # Timeout can be adjusted as needed
+            self.response = msg.content
+        except asyncio.TimeoutError:
+            self.response = "No response received within the timeout period."
+
+    """
+    Closes the client. Necessary for cleanup.
+    """
+    async def close_client(self):
+        await self.close()
+
 
 """
 Send the report to the user
-:param report: Dictionary
+:param message: Dictionary - 
+:param do_format: Bool - should this dict message be formatted as a good morning report.
+:
 """
-def send_message(message_to_send, pic_to_send=None, do_format=False):
-    global pic, message
-    message = message_to_send
-    
+async def asyncio_send_message(message, do_format=False, wait_for_response=False):
+    intents = discord.Intents.default()
+    intents.members = True
+    client = DiscordClient(intents=intents, wait_for_response=wait_for_response)
+
     if do_format:
-        message = _format_report(message_to_send)
-    
-    if pic_to_send:
-        pic = pic_to_send
-
-    DISCORD_API_KEY = os.getenv('DISCORD_API_KEY')
-    client.run(DISCORD_API_KEY)
-
-"""
-Take the weather and todo data and format it into a formatted string.
-"""
-def _format_report(report):
-    # weather data
-    weather = report.get('weather')
-    message = "👋\nThe temperature will be {}° today. It will be {}° in the morning and {}° in the evening." \
-        .format(weather.get('weather_day_temp'),
-                weather.get('weather_morn_temp'),
-                weather.get('weather_eve_temp'))
-    message += "\nFeeling like {}...".format(weather.get('weather_desc'))
-    
-    # to do data
-    todos = report.get('todo')
-    if len(todos) > 0:
-        message += "\n\nYou have {} events today:".format(len(todos))
-
-        for todo in todos:
-            message += '\n* {}'.format(todo.get('summary'))
+        client.message = _format_report(message)
     else:
-        message += "\n\nLooks like you have the day off. Enjoy!"
-    
-    # mantra
-    mantra = report.get('mantra')
-    if mantra:
-        message += "\n\n" + mantra
+        client.message = message
 
-    return message
+    await client.start(os.getenv('DISCORD_API_KEY'))
+
+    #
+    if wait_for_response:
+        return client.response
+
+"""
+Entry point for sending message (asynchronous) from a synchronous process.
+"""
+def send_message(message, do_format=False,  wait_for_response=False):
+    return asyncio.run(asyncio_send_message(message, do_format, wait_for_response))
