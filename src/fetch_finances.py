@@ -13,13 +13,25 @@ load_dotenv()
 
 # load classes
 from finance_scraper.boa_scraper import BoAScraper
-import time
+
 
 if __name__ == '__main__':
+    # message user
+
+    # poll for response from user
+
+    # print user response
+
+
+
+
+    
     boa_scraper = BoAScraper()
     boa_scraper.login()
-    time.sleep(5)
     accounts = boa_scraper.get_accounts()
-    [print(a) for a in accounts]
-    time.sleep(5)
-    # driver.quit()
+
+    for i, a in enumerate(accounts):
+        boa_scraper.open_account_page(a, i)
+        boa_scraper.download_statement()
+
+    boa_scraper.quit()
